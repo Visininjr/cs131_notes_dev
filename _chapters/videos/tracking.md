@@ -134,7 +134,9 @@ x'=a_{1} x+a_{2} y+b_{1} \\
 y'=a_{3} x+a_{4} y+b_{2}
 \end{array}
 $$
-Then, the affine transformation matrix W and parameters p are 
+
+The affine transformation matrix W and parameters p are described as follows:
+
 $$
 \begin{aligned}
 &W=\left(\begin{array}{lll}
