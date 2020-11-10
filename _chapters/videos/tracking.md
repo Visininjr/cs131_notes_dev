@@ -133,7 +133,6 @@ y & 0 & 1
 \end{array}\right)
 \end{array}
 $$
-
 The last line is the Jacobian of the similarity transformation.
 
 ### Affine Motion
@@ -212,7 +211,7 @@ L &= \sum_x \left[I(W(x; p_0 + \Delta p)) - T(x)\right]^2 \\
 \end{align*}
 $$
 
-in which $\displaystyle \nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
+in which $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
 
 Afterwards, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \overline{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
 
@@ -232,12 +231,21 @@ in which $\displaystyle H = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\
 
 ### Interpretation of the H Matrix
 
-We know that $\displaystyle \nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}$ for translation motion. Thus, the $H$ matrix becomes
+Let's consider for translation motions. We know that
+
+$$
+\begin{eqnarray*}
+\nabla I &=& \begin{bmatrix} I_x & I_y \end{bmatrix} \\
+\frac{\partial W}{\partial p} &=& \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}
+\end{eqnarray*}
+$$
+
+Thus, the $H$ matrix becomes
 
 $$ 
 \begin{align*}
 H &= \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[\nabla I \frac{\partial W}{\partial p}\right] \\
-&= \sum_x \left[[I_x \hspace{5pt} I_y] \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right]^T \left[[I_x \hspace{5pt} I_y] \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right] \\
+&= \sum_x \left[\begin{bmatrix} I_x & I_y \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right]^T \left[\begin{bmatrix} I_x & I_y \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right] \\
 &= \sum_x \begin{bmatrix} I_x^2 & I_xI_y \\ I_xI_y & I_y^2\end{bmatrix}
 \end{align*}
 $$
