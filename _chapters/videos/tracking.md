@@ -4,8 +4,6 @@ keywords: (insert comma-separated keywords here)
 order: 16 # Lecture number for 2020
 ---
 
-# Tracking
-
 _(Some introduction here)_
 
 
@@ -54,15 +52,23 @@ Assumptions can also be made regarding the camera: is it fixed, or can it move a
 * We must determine which features _can_ be tracked.
 * We must account for objects that aren't moving, but have their appearance changing over time.
   * For example, a stationary object could appear to be moving if a shadow is being cast over it, darkening it from one side to the other.
-* We must correct drift, which is w
+* We must correct drift, which is when small errors in the location of key points can accumulate over time
+* We need to be able to introduce and remove some or all of the tracking points, as objects are permitted to leave the frame entirely, or reenter at a later stage.
 
 ### Quality of Good Features
 
-_(Some texts here)_
+To account for these challenges, the features from the images that we decide to use must be resilient in those ways.
+
+For example, we do not want to track "ambiguous" locations, meaning large undifferentiated regions of the image that are hard to "anchor" to a specific location, such as arbitrary points along edges or faces, or smooth color gradients. We want to look at corners and sharp changes.
+
+We can look back at the Harris method to find corners, and determine the quality of our keypoints from single images. For example, we can use Harris to get the corners of the very first frame, then track them from there.
+
 
 ### Motion Estimation Techniques
 
-_(Some texts here)_
+This is similar to, but not the same as optical flow. Optical flow takes the pixels of the image and follows them based on image brightness changes across time and space simultaneously. This method only tries to estimate the motion of small number of key points over many frames. Applying optical flow can help towards this goal, by combining corner detection on each frame with the optical flow of pixel motion from the previous frame.
+
+Feature tracking has many applications, such as using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
 
 
@@ -127,8 +133,7 @@ y & 0 & 1
 \end{array}\right)
 \end{array}
 $$
-
-where the last line is the Jacobian of the similarity transformation.
+The last line is the Jacobian of the similarity transformation.
 
 ### Affine Motion
 
@@ -169,9 +174,7 @@ x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
 \end{array}\right)
 \end{aligned}
-$$
-
-where the last line is the Jacobian of the affine transformation.
+The last line is the Jacobian of the affine transformation.
 
 ## Iterative KLT Tracker
 
