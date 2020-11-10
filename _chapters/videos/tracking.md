@@ -100,22 +100,18 @@ $$ y' = ay + b_2 $$
 The similarity transformation matrix W and parameters p are described as follows:
 
 $$
-\begin{array}{c}
+\begin{array}{l}
 W=\left(\begin{array}{ccc}
 a & 0 & b_{1} \\
 0 & a & b_{2}
 \end{array}\right) \\
 p=\left(\begin{array}{ccc}
 a & b_{1} & b_{2}
-\end{array}\right)^{T}
-\end{array}
-$$
-$$
-\begin{array}{c}
+\end{array}\right)^{T} \\
 W(x ; p)=\left(\begin{array}{ccc}
 a & 0 & b_{1} \\
 0 & a & b_{2}
-\end{array}\right)\left(\begin{array}{c}
+\end{array}\right)\left(\begin{array}{l}
 x \\
 y \\
 1
@@ -138,33 +134,31 @@ x'=a_{1} x+a_{2} y+b_{1} \\
 y'=a_{3} x+a_{4} y+b_{2}
 \end{array}
 $$
-Then, the affine transformation matrix W and parameters p are described as follows:
+Then, the affine transformation matrix W and parameters p are 
 $$
-\begin{array}{c}
-W=\left(\begin{array}{ccc}
+\begin{aligned}
+&W=\left(\begin{array}{lll}
 a_{1} & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
-\end{array}\right) \\
-p=\left(\begin{array}{cccccc}
+\end{array}\right)\\
+&\begin{array}{llllll}
+p=\left(\begin{array}{llllll}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
 \end{array}\right)^{T}
-\end{array}
-$$
-$$
-\begin{array}{l}
-W(x ; p)=\left(\begin{array}{cccc}
-a & a_{2} & & b_{1} \\
-a_{3} & a_{4} & & b_{2}
+\end{array}\\
+&W(x ; p)=\left(\begin{array}{ccc}
+a & a_{2} & b_{1} \\
+a_{3} & a_{4} & b_{2}
 \end{array}\right)\left(\begin{array}{l}
 x \\
 y \\
 1
-\end{array}\right) \\
-\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
+\end{array}\right)\\
+&\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
 x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
 \end{array}\right)
-\end{array}
+\end{aligned}
 $$
 ## Iterative KLT Tracker
 
