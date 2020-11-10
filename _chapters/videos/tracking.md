@@ -94,7 +94,7 @@ _(Some texts here)_
 ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true)
 
 Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
-$$ x' = ax + b_1 $$
+$$ x' = ax + b_1 $$ \
 $$ y' = ay + b_2 $$
 
 The similarity transformation matrix W and parameters p are described as follows:
@@ -128,7 +128,7 @@ $$
 ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
 
 Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
-$$ x'=a_1 x+a_2 y+b_1 $$
+$$ x'=a_1 x+a_2 y+b_1 $$ \ 
 $$ y'=a_3 x+a_3 y+b_2 $$
 
 The affine transformation matrix W and parameters p are described as follows:
