@@ -97,11 +97,11 @@ _(Some texts here)_
 
 ### Mathematical Solution
 
-Next, we will derive a closed form approximation of $p$ that minimizes the KLT objective.
+In this section, we will derive a closed form approximation of $p$ that minimizes the KLT objective.
 
 Since $p$ may be large, finding the minimum of $\displaystyle L = \sum_x \left[I(W(x;p)) - T(x)\right]^2$ may be quite challenging. 
 
-Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small residual motions respectively. We can fix $p_0$ by initializing our best guess of the motion, then solve for the small value $\Delta p$.
+Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small (residual) motions respectively. We can fix $p_0$ by initializing our best guess of the motion, then solve for the small value $\Delta p$.
 
 Now, we can use the Taylor series to approximate $L$.
 
@@ -118,14 +118,14 @@ L &= \sum_x \left[I(W(x; p_0 + \Delta p)) - T(x)\right]^2 \\
 \end{align*}
 $$
 
-in which $\nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
+in which $\displaystyle \nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
 
-Next, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \tilde{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
+Afterwards, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \overline{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
 
 Computing its derivative with respect to $\Delta p$ and setting it equal to $0$, we get
 
 $$ 
-\frac{\partial \tilde{L}}{\partial \Delta p} = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right] = 0
+\frac{\partial \overline{L}}{\partial \Delta p} = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right] = 0
 $$
 
 By solving for $\Delta p$, we learn that
@@ -135,6 +135,20 @@ $$
 $$
 
 in which $\displaystyle H = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[\nabla I \frac{\partial W}{\partial p}\right]$ must be invertible.
+
+### Interpretation of the H Matrix
+
+We know that $\displaystyle \nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}$ for translation motion. Thus, the $H$ matrix becomes
+
+$$ 
+\begin{align*}
+H &= \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[\nabla I \frac{\partial W}{\partial p}\right] \\
+&= \sum_x \left[[I_x \hspace{5pt} I_y] \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right]^T \left[[I_x \hspace{5pt} I_y] \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\right] \\
+&= \sum_x \begin{bmatrix} I_x^2 & I_xI_y \\ I_xI_y & I_y^2\end{bmatrix}
+\end{align*}
+$$
+
+This is the matrix for the Harris corner detector. We can see that H is easily invertible when both of its eigenvalues are large, which represents a corner in the input image. Therefore, corners in images are good features for calculating translation motions.
 
 ### Interpretation of the H Matrix
 
