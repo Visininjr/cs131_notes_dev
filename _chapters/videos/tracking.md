@@ -128,6 +128,8 @@ y & 0 & 1
 \end{array}
 $$
 
+where the last line is the Jacobian of the similarity transformation.
+
 ### Affine Motion
 
 ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
@@ -168,6 +170,8 @@ x & y & 1 & 0 & 0 & 0 \\
 \end{array}\right)
 \end{aligned}
 $$
+
+where the last line is the Jacobian of the affine transformation.
 
 ## Iterative KLT Tracker
 
