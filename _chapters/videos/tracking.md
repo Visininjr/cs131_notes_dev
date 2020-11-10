@@ -123,11 +123,13 @@ in which $\nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \frac{\partial W
 Next, we aim to find $\displaystyle \arg\min_{\Delta p} \tilde{L}$ where $\displaystyle \tilde{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
 
 Computing its derivative with respect to $\Delta p$ and setting it equal to $0$, we get
+
 $$ 
 \frac{\partial \tilde{L}}{\partial \Delta p} = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right] = 0
 $$
 
 By solving for $\Delta p$, we learn that
+
 $$
 \Delta p = H^{-1} \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[T(x) - I(W(x;p_0))\right]
 $$
