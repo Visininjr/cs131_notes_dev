@@ -97,7 +97,26 @@ _(Some texts here)_
 
 ### Mathematical Solution
 
-_(Some texts here)_
+Next, we will derive a closed form approximation of $p$ that minimizes the KLT objective.
+
+Since $p$ may be large, finding the minimum of $\displaystyle L = \sum_x \left[I(W(x;p)) - T(x)\right]^2$ may be quite challenging. Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small residual motions respectively. We can fix $p_0$ by initializing our best guess of the motion, then solve for the small value $\Delta p$.
+
+Now, we can use the Taylor series to approximate $L$.
+
+$$
+f(x + \Delta x) = f(x) + \Delta x \frac{\partial f}{\partial x} + \Delta x^2 \frac{\partial^2 f}{\partial x^2} + \dots
+$$
+
+By applying this Taylor approximation with the first two terms, we learn that
+
+$$ 
+\begin{align*}
+L &= \sum_x \left[I(W(x; p_0 + \Delta p)) - T(x)\right]^2 \\
+&\approx \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2 \\
+\end{align*}
+$$
+
+We can see that $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
 
 ### Interpretation of the H Matrix
 
