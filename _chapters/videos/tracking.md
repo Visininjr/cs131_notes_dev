@@ -101,16 +101,13 @@ a&&0&&b_1\\0&&a&&b_2
 \end{pmatrix}
 \begin{pmatrix}
 x\\y\\1
-\end{pmatrix}
-$$
-
-with a Jacobian of :
-$$
+\end{pmatrix}\\
 \frac{\partial W}{\partial p}(x;p) = 
 \begin{pmatrix}
 x&&0&&1\\y&&0&&1
 \end{pmatrix}
 $$
+
 ### Affine Motion
 
 ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
@@ -118,18 +115,18 @@ $$
 Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
 $$
 \begin{array}{l}
-x^{\prime}=a_{1} x+a_{2} y+b_{1} \\
-y^{\prime}=a_{3} x+a_{4} y+b_{2}
+x'=a_{1} x+a_{2} y+b_{1} \\
+y'=a_{3} x+a_{4} y+b_{2}
 \end{array}
 $$
 Then, the affine transformation matrix W and parameters p are described as follows:
 $$
 \begin{aligned}
-W &=\left(\begin{array}{lll}
+W &= \left(\begin{array}{lll}
 a_{1} & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
 \end{array}\right) \\
-p &=\left(\begin{array}{llllll}
+p &= \left(\begin{array}{llllll}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
 \end{array}\right)^{T}
 \end{aligned}
@@ -142,19 +139,12 @@ a&&a_2&&b_1\\a_3&&a_4&&b_2
 \end{pmatrix}
 \begin{pmatrix}
 x\\y\\1
-\end{pmatrix}
-$$
-with a Jacobian of:
-$$
+\end{pmatrix}\\
 \frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
 x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
 \end{array}\right)
 $$
-
-
-
-
 
 ## Iterative KLT Tracker
 
