@@ -120,7 +120,7 @@ $$
 
 in which $\nabla I = [I_x \hspace{5pt} I_y]$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
 
-Next, we aim to find $\displaystyle \arg\min_{\Delta p} \tilde{L}$ where $\displaystyle \tilde{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
+Next, we aim to find $\displaystyle \arg\min_{\Delta p} \hat{L}$ where $\displaystyle \tilde{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
 
 Computing its derivative with respect to $\Delta p$ and setting it equal to $0$, we get
 
