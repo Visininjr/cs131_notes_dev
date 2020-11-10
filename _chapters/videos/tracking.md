@@ -76,11 +76,82 @@ _(Some texts here)_
 
 ### Similarity Motion
 
-_(Some texts here)_
+![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true)
 
+Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
+$$ x' = ax + b_1$$
+$$ y' = ay + b_2$$
+
+The similarity transformation matrix W and parameters p are described as follows:
+
+\begin{aligned}
+W &=\left(\begin{array}{lll}
+a & 0 & b_{1} \\
+0 & a & b_{2}
+\end{array}\right) \\
+p &=\left(\begin{array}{lll}
+a & b_{1} & b_{2}
+\end{array}\right)^{T}
+\end{aligned}
+
+$$
+W(x;p) = 
+\begin{pmatrix}
+a&&0&&b_1\\0&&a&&b_2
+\end{pmatrix}
+\begin{pmatrix}
+x\\y\\1
+\end{pmatrix}
+$$
+
+with a Jacobian of :
+$$
+\frac{\partial W}{\partial p}(x;p) = 
+\begin{pmatrix}
+x&&0&&1\\y&&0&&1
+\end{pmatrix}
+$$
 ### Affine Motion
 
-_(Some texts here)_
+![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
+
+Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
+$$
+\begin{array}{l}
+x^{\prime}=a_{1} x+a_{2} y+b_{1} \\
+y^{\prime}=a_{3} x+a_{4} y+b_{2}
+\end{array}
+$$
+Then, the affine transformation matrix W and parameters p are described as follows:
+$$
+\begin{aligned}
+W &=\left(\begin{array}{lll}
+a_{1} & a_{2} & b_{1} \\
+a_{3} & a_{4} & b_{2}
+\end{array}\right) \\
+p &=\left(\begin{array}{llllll}
+a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
+\end{array}\right)^{T}
+\end{aligned}
+$$
+
+$$
+W(x;p) = 
+\begin{pmatrix}
+a&&a_2&&b_1\\a_3&&a_4&&b_2
+\end{pmatrix}
+\begin{pmatrix}
+x\\y\\1
+\end{pmatrix}
+$$
+with a Jacobian of:
+$$
+\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right)
+$$
+
 
 
 
