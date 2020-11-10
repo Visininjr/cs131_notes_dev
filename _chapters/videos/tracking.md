@@ -174,6 +174,8 @@ x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
 \end{array}\right)
 \end{aligned}
+$$
+
 The last line is the Jacobian of the affine transformation.
 
 ## Iterative KLT Tracker
