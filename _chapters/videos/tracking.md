@@ -150,10 +150,6 @@ $$
 
 This is the matrix for the Harris corner detector. We can see that H is easily invertible when both of its eigenvalues are large, which represents a corner in the input image. Therefore, corners in images are good features for calculating translation motions.
 
-### Interpretation of the H Matrix
-
-_(Some texts here)_
-
 ### Overall KLT Tracker Algorithm
 
 _(Some texts here)_
