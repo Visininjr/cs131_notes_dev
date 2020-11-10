@@ -4,6 +4,8 @@ keywords: (insert comma-separated keywords here)
 order: 16 # Lecture number for 2020
 ---
 
+# Tracking
+
 _(Some introduction here)_
 
 
@@ -35,11 +37,24 @@ _(Some introduction here)_
 
 ### Problem Statement
 
-_(Some texts here)_
+Feature tracking takes an input a sequence of images, representing a video taken by a camera.
+
+The goal is to not just detect keypoints in each frame, but to **follow** the points through the sequence.
+
+Instead of treating each frame as a brand new image, we would like to keep track of **which** points from the previous frame represent the same object as the current frame.
+
+_Single object tracking_ applies when we can make an assumption that each frame will contain the object we want to track exactly once.
+
+_Multiple object tracking_ applies when there could be any number of objects in each frame, such as a crowd of people on a busy street.
+
+Assumptions can also be made regarding the camera: is it fixed, or can it move about? Fixed camera is easier. Multiple cameras is also a possibility, given assumptions about where the cameras are in physical space relative to each other.
 
 ### Challenges in Feature Tracking
 
-_(Some texts here)_
+* We must determine which features _can_ be tracked.
+* We must account for objects that aren't moving, but have their appearance changing over time.
+  * For example, a stationary object could appear to be moving if a shadow is being cast over it, darkening it from one side to the other.
+* We must correct drift, which is w
 
 ### Quality of Good Features
 
@@ -79,33 +94,37 @@ _(Some texts here)_
 ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true)
 
 Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
-$$ x' = ax + b_1$$
-$$ y' = ay + b_2$$
+$$ x' = ax + b_1 $$
+$$ y' = ay + b_2 $$
 
 The similarity transformation matrix W and parameters p are described as follows:
 
-\begin{aligned}
-W &=\left(\begin{array}{lll}
+$$
+\begin{array}{c}
+W=\left(\begin{array}{ccc}
 a & 0 & b_{1} \\
 0 & a & b_{2}
 \end{array}\right) \\
-p &=\left(\begin{array}{lll}
+p=\left(\begin{array}{ccc}
 a & b_{1} & b_{2}
 \end{array}\right)^{T}
-\end{aligned}
-
+\end{array}
 $$
-W(x;p) = 
-\begin{pmatrix}
-a&&0&&b_1\\0&&a&&b_2
-\end{pmatrix}
-\begin{pmatrix}
-x\\y\\1
-\end{pmatrix}\\
-\frac{\partial W}{\partial p}(x;p) = 
-\begin{pmatrix}
-x&&0&&1\\y&&0&&1
-\end{pmatrix}
+$$
+\begin{array}{c}
+W(x ; p)=\left(\begin{array}{ccc}
+a & 0 & b_{1} \\
+0 & a & b_{2}
+\end{array}\right)\left(\begin{array}{c}
+x \\
+y \\
+1
+\end{array}\right) \\
+\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{lll}
+x & 0 & 1 \\
+y & 0 & 1
+\end{array}\right)
+\end{array}
 $$
 
 ### Affine Motion
@@ -121,31 +140,32 @@ y'=a_{3} x+a_{4} y+b_{2}
 $$
 Then, the affine transformation matrix W and parameters p are described as follows:
 $$
-\begin{aligned}
-W &= \left(\begin{array}{lll}
+\begin{array}{c}
+W=\left(\begin{array}{ccc}
 a_{1} & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
 \end{array}\right) \\
-p &= \left(\begin{array}{llllll}
+p=\left(\begin{array}{cccccc}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
 \end{array}\right)^{T}
-\end{aligned}
+\end{array}
 $$
-
 $$
-W(x;p) = 
-\begin{pmatrix}
-a&&a_2&&b_1\\a_3&&a_4&&b_2
-\end{pmatrix}
-\begin{pmatrix}
-x\\y\\1
-\end{pmatrix}\\
+\begin{array}{l}
+W(x ; p)=\left(\begin{array}{cccc}
+a & a_{2} & & b_{1} \\
+a_{3} & a_{4} & & b_{2}
+\end{array}\right)\left(\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right) \\
 \frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
 x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
 \end{array}\right)
+\end{array}
 $$
-
 ## Iterative KLT Tracker
 
 ### Problem Setting
@@ -162,7 +182,7 @@ In this section, we will derive a closed form approximation of $p$ that minimize
 
 Since $p$ may be large, finding the minimum of $\displaystyle L = \sum_x \left[I(W(x;p)) - T(x)\right]^2$ may be quite challenging. 
 
-Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small (residual) motions respectively. We can fix $p_0$ by initializing our best guess of the motion, then solve for the small value $\Delta p$.
+Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small (residual) motions respectively. We can fix $p_0$ by initializing it with our best guess of the motion, then solve for the small value $\Delta p$.
 
 Now, we can use the Taylor series to approximate $L$.
 
@@ -222,6 +242,7 @@ _(Some texts here)_
 ### Challenges in Iterative KLT Tracker
 
 _(Some texts here)_
+
 
 
 
