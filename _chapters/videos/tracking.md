@@ -128,12 +128,8 @@ $$
 ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
 
 Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
-$$
-\begin{array}{l}
-x'=a_{1} x+a_{2} y+b_{1} \\
-y'=a_{3} x+a_{4} y+b_{2}
-\end{array}
-$$
+$$ x'=a_1 x+a_2 y+b_1 $$
+$$ y'=a_3 x+a_3 y+b_2 $$
 
 The affine transformation matrix W and parameters p are described as follows:
 
@@ -162,6 +158,7 @@ x & y & 1 & 0 & 0 & 0 \\
 \end{array}\right)
 \end{aligned}
 $$
+
 ## Iterative KLT Tracker
 
 ### Problem Setting
