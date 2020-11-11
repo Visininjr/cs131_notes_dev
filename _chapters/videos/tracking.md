@@ -133,6 +133,7 @@ y & 0 & 1
 \end{array}\right)
 \end{array}
 $$
+
 The last line is the Jacobian of the similarity transformation.
 
 ### Affine Motion
