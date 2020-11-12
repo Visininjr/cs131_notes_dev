@@ -115,7 +115,7 @@ This section presents some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
   <br />
   <em>
-    Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
+    Figure 3. Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
   </em>
   <br />
 </p>
@@ -125,7 +125,7 @@ This section presents some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="400">
   <br />
   <em>
-    Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
+    Figure 4. Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
   </em>
 </p>
 
