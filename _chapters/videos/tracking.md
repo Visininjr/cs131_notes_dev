@@ -74,16 +74,16 @@ Feature tracking has many applications, such as using the combined keypoint loca
 
 ## Simple KLT Tracker
 
+The name “KLT” is derived from the names of its authors Kenade, Lucas, and Tomasi. It is an approach to feature extraction. These are the steps for the algorithm:
+
+
 ### Pipeline
 
-_(Some texts here)_
-
-### Results
-
-_(Some texts here)_
-
-
-
+1. First, we want to find a good point to track. For instance, we can accomplish this by running a Harris corner detector and selecting some corners in the image.
+1. Second, for every corner we detected in the first frame, we will compute the motion of that corner in the consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
+1. Then we can link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
+1. Because we may lose some points due to occlusion, we may want to introduce new Harris points by re-running the Harris detector every so often.
+1. Finally, we keep tracking new and old Harris points using steps 1-3.
 
 ## 2D Transformations: Recap
 
@@ -102,36 +102,36 @@ _(Some texts here)_
 Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
 
 $$
-\begin{array}{l}
-x^{\prime}=a x+b_{1} \\
-y^{\prime}=a y+b_{2}
-\end{array}
+\begin{eqnarray*}
+x^{\prime}&=&a x+b_{1} \\
+y^{\prime}&=&a y+b_{2}
+\end{eqnarray*}
 $$
 
 The similarity transformation matrix W and parameters p are described as follows:
 
 $$
-\begin{array}{l}
-W=\left(\begin{array}{ccc}
+\begin{eqnarray*}
+W&=&\begin{bmatrix}
 a & 0 & b_{1} \\
 0 & a & b_{2}
-\end{array}\right) \\
-p=\left(\begin{array}{ccc}
+\end{bmatrix}\\
+p&=&\begin{bmatrix}
 a & b_{1} & b_{2}
-\end{array}\right)^{T} \\
-W(x ; p)=\left(\begin{array}{ccc}
+\end{bmatrix}^T\\
+W(x ; p)&=&\begin{bmatrix}
 a & 0 & b_{1} \\
 0 & a & b_{2}
-\end{array}\right)\left(\begin{array}{l}
+\end{bmatrix}\begin{bmatrix}
 x \\
 y \\
 1
-\end{array}\right) \\
-\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{lll}
+\end{bmatrix}\\
+\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
 x & 0 & 1 \\
 y & 0 & 1
-\end{array}\right)
-\end{array}
+\end{bmatrix}
+\end{eqnarray*}
 $$
 
 The last line is the Jacobian of the similarity transformation.
@@ -143,38 +143,36 @@ The last line is the Jacobian of the similarity transformation.
 Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
 
 $$
-\begin{array}{l}
-x^{\prime}=a_{1} x+a_{2} y+b_{1} \\
-y^{\prime}=a_{3} x+a_{3} y+b_{2}
-\end{array}
+\begin{eqnarray*}
+x^{\prime}&=&a_{1} x+a_{2} y+b_{1} \\
+y^{\prime}&=&a_{3} x+a_{3} y+b_{2}
+\end{eqnarray*}
 $$
 
 The affine transformation matrix W and parameters p are described as follows:
 
 $$
-\begin{aligned}
-&W=\left(\begin{array}{lll}
+\begin{eqnarray*}
+W&=&\begin{bmatrix}
 a_{1} & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
-\end{array}\right)\\
-&\begin{array}{llllll}
-p=\left(\begin{array}{llllll}
+\end{bmatrix}\\
+p&=&\begin{bmatrix}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
-\end{array}\right)^{T}
-\end{array}\\
-&W(x ; p)=\left(\begin{array}{ccc}
+\end{bmatrix}^T\\
+W(x ; p)&=&\begin{bmatrix}
 a & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
-\end{array}\right)\left(\begin{array}{l}
+\end{bmatrix}\begin{bmatrix}
 x \\
 y \\
 1
-\end{array}\right)\\
-&\frac{\partial W}{\partial p}(x ; p)=\left(\begin{array}{llllll}
+\end{bmatrix}\\
+\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
 x & y & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & x & y & 1
-\end{array}\right)
-\end{aligned}
+\end{bmatrix}
+\end{eqnarray*}
 $$
 
 The last line is the Jacobian of the affine transformation.
@@ -183,28 +181,11 @@ The last line is the Jacobian of the affine transformation.
 
 ### Problem Setting
 
-The iterative KLT tracker is a more advanced version of the simple KLT tracker.
-
-Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
-
-For each feature at location $x = [x \hspace{0.2cm} y]^{T}$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$.
-
-For a location $x$ to reach its new location $W(x; p)$, we will assume that $x$ undergoes a transformation (translation, affine, ...) parameterized by $p$.
-
-This iterative approach is different from the simple KLT tracker in the way that it links frames. Instead of using optical flow to link motion vectors and track motion, we directly solve for the relevant transformations using feature data and linear approximations. This allows us to deal with more complex transformations and link objects more robustly.
+_(Some texts here)_
 
 ### KLT Objective
 
-Given this problem setting, the objective of the iterative KLT tracker is to find the parameter of transformation $p$ that minimizes the difference between the original template $T(x)$ and the image patch around the new location of $x$ in the next frame (after the transformation). This is represented by the following equation, which is what we want to solve:
-
-$$
-\sum_x [I(W(x; p)) - T(x)]^2 \text{, where}
-$$
-
-* $W(x; p)$ is the new location of feature $x$.
-*  $I(W(x; p))$ is the image intensity at the new location.
-* $p$ represents the vector of parameters that define the transformation that moved $x$ to its new location $W(x; p)$.
-* The sum is over the image patch around $x$.
+_(Some texts here)_
 
 ### Mathematical Solution
 
@@ -229,7 +210,7 @@ L &= \sum_x \left[I(W(x; p_0 + \Delta p)) - T(x)\right]^2 \\
 \end{align*}
 $$
 
-in which $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translations, and other transformations.
+in which $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translation motions, and other transformations.
 
 Afterwards, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \overline{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
 
@@ -249,7 +230,7 @@ in which $\displaystyle H = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\
 
 ### Interpretation of the H Matrix
 
-Let's consider for translation motions. We know that
+Let's consider translation motions. We know that
 
 $$
 \begin{eqnarray*}
@@ -272,15 +253,36 @@ This is the matrix for the Harris corner detector. We can see that H is easily i
 
 ### Overall KLT Tracker Algorithm
 
-_(Some texts here)_
+Given our formula for $\Delta p$, this is the pseudocode for the algorithm.
+
+Given the features from Harris detector:
+
+1. Initialize $p_0$.
+2. Compute the initial templates $T(x)$ for each feature.
+3. Transform the features in the image $I$ with $W(x;p_0)$.
+4. Measure the error $\displaystyle I(W(x;p_0))-T(x)$
+5. Compute the image gradients $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$.
+6. Evaluate the Jacobian $\displaystyle \frac{\delta W}{\delta p}$.
+7. Compute the steepest descent $\displaystyle \nabla I \frac{\delta W}{\delta p}$.
+8. Compute Inverse Hessian $H^{-1}$.
+9. Calculate the change in parameters $\Delta p$.
+10. Update parameters $\displaystyle p_0 = p_0+\Delta p$.
+11. Repeat steps 3 to 10 until $\Delta p$ is small.
+
 
 ### KLT over Multiple Frames
 
-_(Some texts here)_
+We can extend this over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. Run the Harris detector every so often ($15-20$ frames) to replenish features.
 
 ### Challenges in Iterative KLT Tracker
 
-_(Some texts here)_
+When implementing this algorithm, there are a few key issues to consider:
+* Window size (size of neighborhood/template around $x$)
+    * Small window more sensitive to noise and may miss larger motions (if we don't use a pyramid).
+    * Large window more likely to cross an occlusion boundary, making the signal confusing to the algorithm (also, it is slower).
+    * Most implementations stay between the range of $15 \times 15$ to $31 \times 31$ for neighborhoods.
+* Weighting the window
+    - Common to apply weights so that center matters more (e.g. with Gaussian weighting to give more emphasis to center pixels.)
 
 
 
