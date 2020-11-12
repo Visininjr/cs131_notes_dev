@@ -167,7 +167,7 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 ### Translation
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="350">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="300">
   <br />
   <em>
     Translation [1]
