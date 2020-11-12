@@ -1,6 +1,6 @@
 ---
 title: Tracking
-keywords: (insert comma-separated keywords here)
+keywords: feature tracking, klt algorithm
 order: 16 # Lecture number for 2020
 ---
 
@@ -82,7 +82,7 @@ Feature tracking has many practical applications. One example is using the combi
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true" width="200">
   <br />
   <em>
-    Figure 2. An application of feature tracking to visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
+    Figure 2. An application of feature tracking for visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
   </em>
 </p>
 
@@ -95,33 +95,37 @@ Feature tracking has many practical applications. One example is using the combi
 
 ## Simple KLT Tracker
 
-The name “KLT” is derived from the names of its authors Kenade, Lucas, and Tomasi. It is a simple approach to feature extraction. 
+The name “KLT” is derived from the names of its authors Kenade, Lucas, and Tomasi. This algorithm is a simple approach to feature extraction. 
 
 ### Pipeline
 
 These are the steps for the algorithm:
 
-1. First, we want to find a good point to track. For instance, we can accomplish this by running a Harris corner detector and selecting some corners in the image.
-2. Second, for every corner we detected in the first frame, we will compute the motion of that corner in the consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
-3. Then we can link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
-4. Because we may lose some points due to occlusion, we may want to introduce new Harris points by re-running the Harris detector every so often.
-5. Finally, we keep tracking new and old Harris points using steps 1-3.
+1. Find a good point to track. For instance, we can accomplish this by running a Harris corner detector and selecting some corners in the image.
+2. For every detected Harris corner, compute the motion of that corner across consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
+3. Link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
+4. Introduce new Harris points by re-running the Harris detector every $10 - 15$ frames (because we may get new points or lose some points due to occlusion).
+5. Keep track of new and old Harris points using steps 1-3.
 
 ### Results
+
+This section presents some results of the simple KLT tracking algorithm.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
   <br />
   <em>
-    KLT [4, 5]
+    Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
   </em>
+  <br />
 </p>
 
 <p align="center">
+  <br />
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="400">
   <br />
   <em>
-    KLT [4, 5]
+    Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
   </em>
 </p>
 
