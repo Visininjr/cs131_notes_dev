@@ -111,7 +111,7 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 1. Finally, we keep tracking new and old Harris points using steps 1-3.
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="600">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
   <br />
   <em>
     KLT [4, 5]
@@ -119,7 +119,7 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 </p>
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="600">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="400">
   <br />
   <em>
     KLT [4, 5]
@@ -167,7 +167,7 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 ### Translation
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="400">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="350">
   <br />
   <em>
     Translation [1]
