@@ -6,6 +6,7 @@ order: 16 # Lecture number for 2020
 
 _(Some introduction here)_
 
+
 * [Feature Tracking](#feature-tracking)
     * [Problem Statement](#problem-statement)
     * [Challenges in Feature Tracking](#challenges-in-feature-tracking)
@@ -46,7 +47,15 @@ _Multiple object tracking_ applies when there could be any number of objects in 
 
 Assumptions can also be made regarding the camera: is it fixed, or can it move about? Fixed camera is easier. Multiple cameras is also a possibility, given assumptions about where the cameras are in physical space relative to each other.
 
-![feature tracking img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true) 
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true)" width="600">
+  <br />
+  <em>
+    Feature Tracking.
+  </em>
+</p>
+
+<!-- ![feature tracking img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true)  -->
 
 [2]
 
@@ -93,6 +102,12 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 1. Then we can link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
 1. Because we may lose some points due to occlusion, we may want to introduce new Harris points by re-running the Harris detector every so often.
 1. Finally, we keep tracking new and old Harris points using steps 1-3.
+
+![klt img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true) 
+
+![klt 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true) 
+
+[4, 5]
 
 ## 2D Transformations: Recap
 
