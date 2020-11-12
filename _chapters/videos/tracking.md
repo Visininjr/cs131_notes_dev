@@ -153,9 +153,9 @@ This section reviews some fundamental concepts of 2D transformations that are ne
 There are different types of 2D transformations, as shown in Figure 5. Some examples include:
 
 * Translation transformations.
-* Euclidean transformations (rotation, translation, and reflection).
-* Similarity transformations (rotation, translation, and scaling).
-* Affine transformations (rotation, translation, scaling, and shearing).
+* Euclidean transformations.
+* Similarity transformations.
+* Affine transformations.
 * Projective transformations.
 
 
@@ -171,31 +171,58 @@ There are different types of 2D transformations, as shown in Figure 5. Some exam
 
 <!-- ![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true) -->
 
+Translation is a motion that shifts a object from one point to another. In particular, translation motion maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
+
 $$
 \begin{eqnarray*}
 x^{\prime}&=& x+b_{1} \\
 y^{\prime}&=&y+b_{2}\\
+\end{eqnarray*}
+$$
+
+We can rewrite this equation in matrix notation using homogeneous coordinates:
+
+$$
 \begin{bmatrix}
-x'\\
-y'
-\end{bmatrix}&=&\begin{bmatrix}
+x^{\prime}\\
+y^{\prime}
+\end{bmatrix} = \begin{bmatrix}
 1 & 0 & b_{1} \\
 0 & 1 & b_{2}
 \end{bmatrix}\begin{bmatrix}
 x \\
 y \\
 1
-\end{bmatrix}\\
-p&=&\begin{bmatrix}
-b_{1} \\ b_{2}
 \end{bmatrix}
-\\
-\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
+$$
+
+Let $W$ denote the above translation transformation. We have:
+
+$$
+W(x ; p)=\begin{bmatrix}
+1 & 0 & b_{1} \\
+0 & 1 & b_{2}
+\end{bmatrix}\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}
+$$
+
+in which there are only two parameters $p=\begin{bmatrix}
+b_{1} \\ b_{2}
+\end{bmatrix}$.
+
+The derivative of the trasformation W with respect to p is:
+
+$$
+\frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
 1 & 0 \\
 0 & 1
 \end{bmatrix}
-\end{eqnarray*}
 $$
+
+This is the Jacobian of the translation motion.
 
 ### Similarity Motion
 
@@ -209,7 +236,7 @@ $$
 
 <!-- ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true) -->
 
-Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
+Similarity motion is a rigid motion that includes scaling and translation. In particular, similarity transformation maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
 
 $$
 \begin{eqnarray*}
@@ -218,7 +245,20 @@ y^{\prime}&=&a y+b_{2}
 \end{eqnarray*}
 $$
 
-The similarity transformation matrix W and parameters p are described as follows:
+We can rewrite the equations as a matrix transformation:
+
+$$
+W(x ; p)=\begin{bmatrix}
+a & 0 & b_{1} \\
+0 & a & b_{2}
+\end{bmatrix}\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}
+$$
+
+The similarity transformation matrix W and the parameters p are described as follows:
 
 $$
 \begin{eqnarray*}
@@ -228,23 +268,20 @@ a & 0 & b_{1} \\
 \end{bmatrix}\\
 p&=&\begin{bmatrix}
 a & b_{1} & b_{2}
-\end{bmatrix}^T\\
-W(x ; p)&=&\begin{bmatrix}
-a & 0 & b_{1} \\
-0 & a & b_{2}
-\end{bmatrix}\begin{bmatrix}
-x \\
-y \\
-1
-\end{bmatrix}\\
-\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
-x & 0 & 1 \\
-y & 0 & 1
-\end{bmatrix}
+\end{bmatrix}^T
 \end{eqnarray*}
 $$
 
-The last line is the Jacobian of the similarity transformation.
+The derivative of the trasformation W with respect to p is:
+
+$$
+\frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
+x & 1 & 0 \\
+y & 0 & 1
+\end{bmatrix}
+$$
+
+This is the Jacobian of the similarity motion.
 
 ### Affine Motion
 
@@ -258,13 +295,26 @@ The last line is the Jacobian of the similarity transformation.
 
 <!-- ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true) -->
 
-Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
+Affine motion includes scaling, translation, and rotation. In particular, affine transformation maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
 
 $$
 \begin{eqnarray*}
 x^{\prime}&=&a_{1} x+a_{2} y+b_{1} \\
 y^{\prime}&=&a_{3} x+a_{3} y+b_{2}
 \end{eqnarray*}
+$$
+
+We can rewrite the equations as a matrix transformation:
+
+$$
+W(x ; p)=\begin{bmatrix}
+a & a_{2} & b_{1} \\
+a_{3} & a_{4} & b_{2}
+\end{bmatrix}\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}
 $$
 
 The affine transformation matrix W and parameters p are described as follows:
@@ -277,31 +327,28 @@ a_{3} & a_{4} & b_{2}
 \end{bmatrix}\\
 p&=&\begin{bmatrix}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
-\end{bmatrix}^T\\
-W(x ; p)&=&\begin{bmatrix}
-a & a_{2} & b_{1} \\
-a_{3} & a_{4} & b_{2}
-\end{bmatrix}\begin{bmatrix}
-x \\
-y \\
-1
-\end{bmatrix}\\
-\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
-x & y & 1 & 0 & 0 & 0 \\
-0 & 0 & 0 & x & y & 1
-\end{bmatrix}
+\end{bmatrix}^T
 \end{eqnarray*}
 $$
 
-The last line is the Jacobian of the affine transformation.
+The derivative of the trasformation W with respect to p is:
+
+$$
+\frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{bmatrix}
+$$
+
+This is the Jacobian of the affine motion.
 
 ## Iterative KLT Tracker
 
 ### Problem Setting
 
-The iterative KLT tracker is a more advanced version of the simple KLT tracker.
+The iterative KLT tracker is a more advanced version of the above simple KLT tracker.
 
- Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
+Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
 
 For each feature at location $x = \begin{bmatrix} x & y \end{bmatrix}^T$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$.
 
