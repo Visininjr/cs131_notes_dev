@@ -48,16 +48,14 @@ _Multiple object tracking_ applies when there could be any number of objects in 
 Assumptions can also be made regarding the camera: is it fixed, or can it move about? Fixed camera is easier. Multiple cameras is also a possibility, given assumptions about where the cameras are in physical space relative to each other.
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true)" width="600">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true" width="600">
   <br />
   <em>
-    Feature Tracking.
+    Feature Tracking [2]
   </em>
 </p>
 
 <!-- ![feature tracking img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true)  -->
-
-[2]
 
 ### Challenges in Feature Tracking
 
@@ -82,13 +80,22 @@ This is similar to, but not the same as optical flow. Optical flow takes the pix
 
 Feature tracking has many applications, such as using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
-![feature tracking 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true) 
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true" width="200">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_tracked_1.gif?raw=true" width="200">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true" width="200">
+  <br />
+  <em>
+    Feature Tracking [3]
+  </em>
+</p>
+
+<!-- ![feature tracking 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true) 
 
 ![feature tracking 3 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_tracked_1.gif?raw=true) 
 
-![feature tracking 4 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true) 
+![feature tracking 4 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true)  -->
 
-[3]
 
 ## Simple KLT Tracker
 
@@ -103,17 +110,40 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 1. Because we may lose some points due to occlusion, we may want to introduce new Harris points by re-running the Harris detector every so often.
 1. Finally, we keep tracking new and old Harris points using steps 1-3.
 
-![klt img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true) 
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="600">
+  <br />
+  <em>
+    KLT [4, 5]
+  </em>
+</p>
 
-![klt 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true) 
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="600">
+  <br />
+  <em>
+    KLT [4, 5]
+  </em>
+</p>
 
-[4, 5]
+<!-- ![klt img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true) 
+
+![klt 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true)  -->
+
 
 ## 2D Transformations: Recap
 
 ### Types of 2D Transformations
 
-![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true" width="600">
+  <br />
+  <em>
+    Types of 2D Transformations [1]
+  </em>
+</p>
+
+<!-- ![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true) -->
 
 * Translation
   * Translation
@@ -136,7 +166,15 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 
 ### Translation
 
-![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="400">
+  <br />
+  <em>
+    Translation [1]
+  </em>
+</p>
+
+<!-- ![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true) -->
 
 $$
 \begin{eqnarray*}
@@ -166,7 +204,15 @@ $$
 
 ### Similarity Motion
 
-![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true)
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true" width="500">
+  <br />
+  <em>
+    Similarity [1]
+  </em>
+</p>
+
+<!-- ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true) -->
 
 Recall similarity motion is a rigid motion that includes scaling and translation. This can be defined as follows:
 
@@ -207,7 +253,15 @@ The last line is the Jacobian of the similarity transformation.
 
 ### Affine Motion
 
-![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true)
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true" width="500">
+  <br />
+  <em>
+    Affine [1]
+  </em>
+</p>
+
+<!-- ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true) -->
 
 Recall that affine motion includes scaling, translation, and rotation. This can be defined as follows:
 
@@ -358,7 +412,7 @@ When implementing this algorithm, there are a few key issues to consider:
 
 ## References
 
-[1]
+[1] http://vision.stanford.edu/teaching/cs131_fall1920/slides/18_tracking.pdf
 
 [2] https://web.yonsei.ac.kr/jksuhr/articles/Kanade-Lucas-Tomasi%20Tracker.pdf
 
