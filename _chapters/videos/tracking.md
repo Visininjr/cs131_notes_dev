@@ -304,11 +304,26 @@ The last line is the Jacobian of the affine transformation.
 
 ### Problem Setting
 
-_(Some texts here)_
+The iterative KLT tracker is a more advanced version of the simple KLT tracker.
+
+Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
+
+For each feature at location $x = [x \hspace{0.2cm} y]^{T}$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$.
+
+For a location $x$ to reach its new location $W(x; p)$, we will assume that $x$ undergoes a transformation (translation, affine, ...) parameterized by $p$.
+
+This iterative approach is different from the simple KLT tracker in the way that it links frames. Instead of using optical flow to link motion vectors and track motion, we directly solve for the relevant transformations using feature data and linear approximations. This allows us to deal with more complex transformations and link objects more robustly.
 
 ### KLT Objective
 
-_(Some texts here)_
+Given this problem setting, the objective of the iterative KLT tracker is to find the parameter of transformation $p$ that minimizes the difference between the original template $T(x)$ and the image patch around the new location of $x$ in the next frame (after the transformation). This is represented by the following equation, which is what we want to solve:
+
+$$ \sum_x [I(W(x; p)) - T(x)]^2 \text{, where} $$
+
+* $W(x; p)$ is the new location of feature $x$.
+* $I(W(x; p))$ is the image intensity at the new location.
+* $p$ represents the vector of parameters that define the transformation that moved $x$ to its new location $W(x; p)$.
+* The sum is over the image patch around $x$.
 
 ### Mathematical Solution
 
