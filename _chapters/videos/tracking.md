@@ -35,23 +35,17 @@ _(Some introduction here)_
 
 ### Problem Statement
 
-Feature tracking takes an input a sequence of images, representing a video taken by a camera.
+Feature tracking takes an input a sequence of images, representing a video taken by a camera. The goal of feature tracking is to not just detect feature points in each frame, but to track the points through the sequence of frames. Specifically, instead of treating each frame as a brand new image, we would like to keep track of which points from the previous frame represent the same feature points in the current frame.
 
-The goal is to not just detect keypoints in each frame, but to **follow** the points through the sequence.
+_**Single object tracking**_ applies when we can make an assumption that each frame will contain the object we want to track exactly once. Meanehile, _**multiple object tracking**_ applies when there could be any number of objects in each frame, such as a crowd of people on a busy street.
 
-Instead of treating each frame as a brand new image, we would like to keep track of **which** points from the previous frame represent the same object as the current frame.
-
-_Single object tracking_ applies when we can make an assumption that each frame will contain the object we want to track exactly once.
-
-_Multiple object tracking_ applies when there could be any number of objects in each frame, such as a crowd of people on a busy street.
-
-Assumptions can also be made regarding the camera: is it fixed, or can it move about? Fixed camera is easier. Multiple cameras is also a possibility, given assumptions about where the cameras are in physical space relative to each other.
+Assumptions can also be made regarding whether the camera is fixed or moving. Feature tracking with a moving camera is a more challenging problem. Another possibility is tracking with Mmltiple cameras, with some assumptions about where the cameras are in physical space relative to each other.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true" width="600">
   <br />
   <em>
-    Feature Tracking [2]
+    Figure 1. Feature point detection and tracking (Credit: Yonsei Univ. [2])
   </em>
 </p>
 
@@ -59,26 +53,26 @@ Assumptions can also be made regarding the camera: is it fixed, or can it move a
 
 ### Challenges in Feature Tracking
 
-* We must determine which features _can_ be tracked.
-* We must account for objects that aren't moving, but have their appearance changing over time.
+* We must determine which features can be tracked, so that our algorithms can efficiently track them accross multiple frames.
+* We must account for objects that are ot moving, but have their appearance changing over time due to other factors like rotation, moving into shadows, and so on.
   * For example, a stationary object could appear to be moving if a shadow is being cast over it, darkening it from one side to the other.
-* We must correct drift, which is when small errors in the location of key points can accumulate over time
-* We need to be able to introduce and remove some or all of the tracking points, as objects are permitted to leave the frame entirely, or reenter at a later stage.
+* We must correct drift, which is when small errors in the location of key points can accumulate over time as appearance model is updated.
+* We need to be able to introduce and remove some or all of the tracked points, as objects are allowed to leave the frame entirely or reenter at a later stage.
 
 ### Quality of Good Features
 
-To account for these challenges, the features from the images that we decide to use must be resilient in those ways.
+To account for these challenges, the features from the images that we decide to use must be resilient in those ways. In particlar, we need a technique that can measure the quality of features from just a single image, and we need to avoid smooth regions and edges.
 
-For example, we do not want to track "ambiguous" locations, meaning large undifferentiated regions of the image that are hard to "anchor" to a specific location, such as arbitrary points along edges or faces, or smooth color gradients. We want to look at corners and sharp changes.
+For example, we do not want to track "ambiguous" locations, meaning large undifferentiated regions of the image that are hard to "anchor" to a specific location, such as arbitrary points along edges or faces or smooth color gradients. We want to look at corners and sharp changes.
 
-We can look back at the Harris method to find corners, and determine the quality of our keypoints from single images. For example, we can use Harris to get the corners of the very first frame, then track them from there.
+A feasible solution is using Harris Corners. We can leverage the Harris method to detect corners as key points and determine the quality of our key points from single images. For example, we can use Harris to get the corners of the very first frame, then track them from there. This practice guarantees small error sensitivity.
 
 
 ### Motion Estimation Techniques
 
-This is similar to, but not the same as optical flow. Optical flow takes the pixels of the image and follows them based on image brightness changes across time and space simultaneously. This method only tries to estimate the motion of small number of key points over many frames. Applying optical flow can help towards this goal, by combining corner detection on each frame with the optical flow of pixel motion from the previous frame.
+Feature tracking is similar to, but not the same as optical flow. In fact, optical flow takes the pixels of the image frames and recover their motion based on image brightness changes across time and space simultaneously. However, feature tracking only attempts to estimate the motion of a small number of visual feature points over multiple frames. We can also achieve this goal by combining keypoint detection on each frame with optical flow algorithms to track the feature points.
 
-Feature tracking has many applications, such as using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
+Feature tracking has many practical applications. One example is using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true" width="200">
@@ -86,7 +80,7 @@ Feature tracking has many applications, such as using the combined keypoint loca
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true" width="200">
   <br />
   <em>
-    Feature Tracking [3]
+    An application of feature tracking to visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
   </em>
 </p>
 
@@ -304,26 +298,11 @@ The last line is the Jacobian of the affine transformation.
 
 ### Problem Setting
 
-The iterative KLT tracker is a more advanced version of the simple KLT tracker.
-
-Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
-
-For each feature at location $x = [x \hspace{0.2cm} y]^{T}$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$.
-
-For a location $x$ to reach its new location $W(x; p)$, we will assume that $x$ undergoes a transformation (translation, affine, ...) parameterized by $p$.
-
-This iterative approach is different from the simple KLT tracker in the way that it links frames. Instead of using optical flow to link motion vectors and track motion, we directly solve for the relevant transformations using feature data and linear approximations. This allows us to deal with more complex transformations and link objects more robustly.
+_(Some texts here)_
 
 ### KLT Objective
 
-Given this problem setting, the objective of the iterative KLT tracker is to find the parameter of transformation $p$ that minimizes the difference between the original template $T(x)$ and the image patch around the new location of $x$ in the next frame (after the transformation). This is represented by the following equation, which is what we want to solve:
-
-$$ \sum_x [I(W(x; p)) - T(x)]^2 \text{, where} $$
-
-* $W(x; p)$ is the new location of feature $x$.
-* $I(W(x; p))$ is the image intensity at the new location.
-* $p$ represents the vector of parameters that define the transformation that moved $x$ to its new location $W(x; p)$.
-* The sum is over the image patch around $x$.
+_(Some texts here)_
 
 ### Mathematical Solution
 
