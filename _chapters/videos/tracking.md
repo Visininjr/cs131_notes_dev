@@ -45,7 +45,7 @@ Assumptions can also be made regarding whether the camera is fixed or moving. Fe
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true" width="600">
   <br />
   <em>
-    Figure 1. Feature point detection and tracking (Credit: Yonsei Univ. [2])
+    Figure 1. Feature point detection and tracking (Credit: Yonsei University [2])
   </em>
 </p>
 
@@ -109,7 +109,7 @@ These are the steps for the algorithm:
 
 ### Results
 
-This section presents some results of the simple KLT tracking algorithm.
+This section illustrates some results of the simple KLT tracking algorithm.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
@@ -136,35 +136,27 @@ This section presents some results of the simple KLT tracking algorithm.
 
 ## 2D Transformations: Recap
 
+This section reviews some fundamental concepts of 2D transformations that are necessary for understanding the next section.
+
 ### Types of 2D Transformations
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true" width="600">
   <br />
   <em>
-    Types of 2D Transformations [1]
+    Figure 5. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
 <!-- ![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true) -->
 
-* Translation
-  * Translation
-* Euclidean
-  * Rotation
-  * Translation
-  * Reflection
-* Similarity
-  * Rotation
-  * Translation
-  * Scale
-* Affine
-  * Rotation
-  * Translation
-  * Scale
-  * Shear
-* Projective
-  * Anything (does not even preserve parallelism)
+There are different types of 2D transformations, as shown in Figure 5. Some examples include:
+
+* Translation transformations.
+* Euclidean transformations (rotation, translation, and reflection).
+* Similarity transformations (rotation, translation, and scaling).
+* Affine transformations (rotation, translation, scaling, and shearing).
+* Projective transformations.
 
 
 ### Translation
@@ -173,7 +165,7 @@ This section presents some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="300">
   <br />
   <em>
-    Translation [1]
+    Figure 6. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -211,7 +203,7 @@ $$
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true" width="500">
   <br />
   <em>
-    Similarity [1]
+    Figure 7. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -260,7 +252,7 @@ The last line is the Jacobian of the similarity transformation.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true" width="500">
   <br />
   <em>
-    Affine [1]
+    Figure 8. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
