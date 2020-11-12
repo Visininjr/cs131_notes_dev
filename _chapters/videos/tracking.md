@@ -6,7 +6,6 @@ order: 16 # Lecture number for 2020
 
 _(Some introduction here)_
 
-
 * [Feature Tracking](#feature-tracking)
     * [Problem Statement](#problem-statement)
     * [Challenges in Feature Tracking](#challenges-in-feature-tracking)
@@ -47,6 +46,10 @@ _Multiple object tracking_ applies when there could be any number of objects in 
 
 Assumptions can also be made regarding the camera: is it fixed, or can it move about? Fixed camera is easier. Multiple cameras is also a possibility, given assumptions about where the cameras are in physical space relative to each other.
 
+![feature tracking img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true) 
+
+[2]
+
 ### Challenges in Feature Tracking
 
 * We must determine which features _can_ be tracked.
@@ -70,7 +73,13 @@ This is similar to, but not the same as optical flow. Optical flow takes the pix
 
 Feature tracking has many applications, such as using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
+![feature tracking 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true) 
 
+![feature tracking 3 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_tracked_1.gif?raw=true) 
+
+![feature tracking 4 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true) 
+
+[3]
 
 ## Simple KLT Tracker
 
@@ -89,11 +98,56 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 
 ### Types of 2D Transformations
 
-_(Some texts here)_
+![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true)
+
+* Translation
+  * Translation
+* Euclidean
+  * Rotation
+  * Translation
+  * Reflection
+* Similarity
+  * Rotation
+  * Translation
+  * Scale
+* Affine
+  * Rotation
+  * Translation
+  * Scale
+  * Shear
+* Projective
+  * Anything (does not even preserve parallelism)
+
 
 ### Translation
 
-_(Some texts here)_
+![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true)
+
+$$
+\begin{eqnarray*}
+x^{\prime}&=& x+b_{1} \\
+y^{\prime}&=&y+b_{2}\\
+\begin{bmatrix}
+x'\\
+y'
+\end{bmatrix}&=&\begin{bmatrix}
+1 & 0 & b_{1} \\
+0 & 1 & b_{2}
+\end{bmatrix}\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}\\
+p&=&\begin{bmatrix}
+b_{1} \\ b_{2}
+\end{bmatrix}
+\\
+\frac{\partial W}{\partial p}(x ; p)&=&\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+\end{eqnarray*}
+$$
 
 ### Similarity Motion
 
@@ -260,7 +314,7 @@ Given the features from Harris detector:
 1. Initialize $p_0$.
 2. Compute the initial templates $T(x)$ for each feature.
 3. Transform the features in the image $I$ with $W(x;p_0)$.
-4. Measure the error $\displaystyle I(W(x;p_0))-T(x)$
+4. Measure the error $\displaystyle I(W(x;p_0))-T(x)$.
 5. Compute the image gradients $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$.
 6. Evaluate the Jacobian $\displaystyle \frac{\delta W}{\delta p}$.
 7. Compute the steepest descent $\displaystyle \nabla I \frac{\delta W}{\delta p}$.
@@ -289,4 +343,12 @@ When implementing this algorithm, there are a few key issues to consider:
 
 ## References
 
-_(Some references here)_
+[1]
+
+[2] https://web.yonsei.ac.kr/jksuhr/articles/Kanade-Lucas-Tomasi%20Tracker.pdf
+
+[3] http://www.vision.caltech.edu/bouguetj/Motion/navigation.html
+
+[4] https://cecas.clemson.edu/~stb/klt/lucas_bruce_d_1981_1.pdf
+
+[5] https://cecas.clemson.edu/~stb/klt/tomasi-kanade-techreport-1991.pdf
