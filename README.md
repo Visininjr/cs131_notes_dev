@@ -4,7 +4,7 @@ These notes accompany the Stanford CS class [**CS131**](http://cs131.stanford.ed
 and Applications. This is a development space for the class notes where you can commit your changes as your team builds
 the notes for your assigned lecture, and once you're down we will merge your notes onto the finished website.
 
-Head over to [https://visininjr.github.io/cs131_notes_dev/](https://visininjr.github.io/cs131_notes_dev/) to see what the web page notes that you'll create will look like!
+Head over to [https://visininjr.github.io/cs131_notes_dev/](https://visininjr.github.io/cs131_notes_dev/) to see what the web page notes that you'll create will look like! The exact notes are at [https://visininjr.github.io/cs131_notes_dev/videos/tracking/](https://visininjr.github.io/cs131_notes_dev/videos/tracking/).
 
 ## Steps to create your own notes
 To begin writing your own notes that will appear on a website like this [https://anarcomey.github.io/cs131_notes_dev/](https://anarcomey.github.io/cs131_notes_dev/), have one team member fork the repository building this web page and configure the fork to build a web page for your team to develop on!
