@@ -38,10 +38,6 @@ The process of detecting and tracking objects over multiple video frames is an i
 
 Feature tracking takes an input a sequence of images, representing a video taken by a camera. The goal of feature tracking algorithms is to not just detect feature points in each frame, but to track the points through the sequence of frames. Specifically, instead of treating each frame as a brand new image, we would like to keep track of which points from the previous frame represent the same feature points in the current frame.
 
-_**Single object tracking**_ applies when we can make an assumption that each frame will contain the object we want to track exactly once. Meanehile, _**multiple object tracking**_ applies when there could be any number of objects in each frame, such as a crowd of people on a busy street.
-
-Assumptions can also be made regarding whether the camera is fixed or moving. Feature tracking with a moving camera is a more difficult problem. Another possibility is tracking with Mmltiple cameras, with some assumptions about where the cameras are in physical space relative to each other.
-
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking-2.jpg?raw=true" width="600">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true" width="600">
@@ -49,6 +45,59 @@ Assumptions can also be made regarding whether the camera is fixed or moving. Fe
   <em>
     Figure 1. Feature point detection and tracking (Credit: Yonsei University [2])
   </em>
+  <br />
+</p>
+
+_**Single object tracking**_ applies when we can make an assumption that each frame will contain the object we want to track exactly once. Meanehile, _**multiple object tracking**_ applies when there could be any number of objects in each frame, such as a crowd of people on a busy street.
+
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/single-object-tracking.gif?raw=true" width="400">
+  <br />
+  <em>
+    Figure 2. Single object tracking <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+  <br />
+</p>
+
+<p align="center">
+  <br />
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/multiple-object-tracking.gif?raw=true" width="400">
+  <br />
+  <em>
+    Figure 3. Multiple object tracking <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+  <br />
+</p>
+
+Assumptions can also be made regarding whether the camera is fixed or moving. Feature tracking with a moving camera is a more difficult problem, because we need to account for the motions of both the objects and the backgrounds. Another possibility is tracking with multiple cameras, with some assumptions about where the cameras are in physical space relative to each other.
+
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/fixed-camera-object-tracking.gif?raw=true" width="600">
+  <br />
+  <em>
+    Figure 4. Tracking with a fixed camera <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+  <br />
+</p>
+
+<p align="center">
+  <br />
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/moving-camera-object-tracking.gif?raw=true" width="600">
+  <br />
+  <em>
+    Figure 5. Tracking with a moving camera <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+  <br />
+</p>
+
+<p align="center">
+  <br />
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/multiple-cameras-object-tracking.gif?raw=true" width="500">
+  <br />
+  <em>
+    Figure 6. Tracking with multiple cameras <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+  <br />
 </p>
 
 <!-- ![feature tracking img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true)  -->
@@ -80,8 +129,9 @@ Feature tracking is similar to, but not the same as optical flow. In fact, optic
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/optical-flow.jpg?raw=true" width="400">
   <br />
   <em>
-    Figure 2. Application of optical flow in tracking feature points <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 7. Application of optical flow in tracking feature points <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
+  <br />
 </p>
 
 Feature tracking has many practical applications. One example is using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
@@ -92,8 +142,9 @@ Feature tracking has many practical applications. One example is using the combi
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true" width="200">
   <br />
   <em>
-    Figure 3. An application of feature tracking for visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
+    Figure 8. An application of feature tracking for visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
   </em>
+  <br />
 </p>
 
 <!-- ![feature tracking 2 img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true) 
@@ -125,7 +176,7 @@ This section illustrates some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_fish.gif?raw=true" width="500">
   <br />
   <em>
-    Figure 4. Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
+    Figure . Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
   </em>
   <br />
 </p>
@@ -135,7 +186,7 @@ This section illustrates some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
   <br />
   <em>
-    Figure 5. Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
+    Figure 10. Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
   </em>
   <br />
 </p>
@@ -145,8 +196,9 @@ This section illustrates some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="400">
   <br />
   <em>
-    Figure 6. Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
+    Figure 11. Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
   </em>
+  <br />
 </p>
 
 <!-- ![klt img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true) 
@@ -164,13 +216,13 @@ This section reviews some fundamental concepts of 2D transformations that are ne
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true" width="600">
   <br />
   <em>
-    Figure 7. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 12. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
 <!-- ![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true) -->
 
-There are different types of 2D transformations, as shown in Figure 7. Some examples include:
+There are different types of 2D transformations, as shown in Figure 12. Some examples include:
 
 * Translation transformations.
 * Euclidean transformations.
@@ -185,8 +237,9 @@ There are different types of 2D transformations, as shown in Figure 7. Some exam
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="300">
   <br />
   <em>
-    Figure 8. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 13. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
+  <br />
 </p>
 
 <!-- ![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true) -->
@@ -250,8 +303,9 @@ This is the Jacobian of the translation motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true" width="500">
   <br />
   <em>
-    Figure 9. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 14. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
+  <br />
 </p>
 
 <!-- ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true) -->
@@ -309,8 +363,9 @@ This is the Jacobian of the similarity motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true" width="500">
   <br />
   <em>
-    Figure 10. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 15. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
+  <br />
 </p>
 
 <!-- ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true) -->
