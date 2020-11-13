@@ -121,7 +121,7 @@ These are the steps for the algorithm:
 This section illustrates some results of the simple KLT tracking algorithm.
 
 <p align="center">
-  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_fish.gif?raw=true" width="400">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_fish.gif?raw=true" width="500">
   <br />
   <em>
     Figure 4. Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
