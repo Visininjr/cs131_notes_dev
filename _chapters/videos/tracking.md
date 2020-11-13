@@ -526,7 +526,7 @@ Given the features from Harris detector:
 
 ### KLT over Multiple Frames
 
-We can extend this algorithm over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. Run the Harris detector every so often ($15-20$ frames) to replenish feature points.
+We can extend this algorithm over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. The way we do this is by running the Harris detector every so often ($15-20$ frames) to replenish feature points.
 
 ### Challenges in Iterative KLT Tracker
 
