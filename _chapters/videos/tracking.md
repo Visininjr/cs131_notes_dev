@@ -36,7 +36,7 @@ The process of detecting and tracking objects over multiple video frames is an i
 
 ### Problem Statement
 
-Feature tracking takes an input a sequence of images, representing a video taken by a camera. The goal of feature tracking algorithms is to not just detect feature points in each frame, but to track the points through the sequence of frames. Specifically, instead of treating each frame as a brand new image, we would like to keep track of which points from the previous frame represent the same feature points in the current frame.
+Feature tracking takes an input a sequence of images, representing a video taken by a camera. The goal of feature tracking algorithms is not only to detect feature points in each frame, but also to track the points through the sequence of frames. Specifically, instead of treating each frame as a brand new image, we would like to keep track of which points from the previous frame represent the same feature points in the current frame.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking-2.jpg?raw=true" width="600">
@@ -107,16 +107,16 @@ Assumptions can also be made regarding whether the camera is fixed or moving. Fe
 The process of tracking feature points present a number of challenges.
 
 * We must determine which features can be tracked, so that our algorithms can efficiently track them accross multiple frames.
-* We must account for objects that are ot moving, but have their appearance changing over time due to other factors like rotation, moving into shadows, and so on.
+* We must account for objects that are not moving, but have their appearance changing over time due to other factors like rotation, moving into shadows, and so on.
   * For example, a stationary object could appear to be moving if a shadow is being cast over it, darkening it from one side to the other.
 * We must correct drift, which is when small errors in the location of key points can accumulate over time as appearance model is updated.
 * We need to be able to introduce and remove some or all of the tracked points, as objects are allowed to leave the frame entirely or reenter at a later stage.
 
 ### Quality of Good Features
 
-To account for these challenges, the features from the images that we decide to use must be resilient in those ways. In particlar, we need a technique that can measure the quality of features from just a single image, and we need to avoid smooth regions and edges.
+To account for these challenges, the features from the images that we decide to use must be resilient in those ways. In particlar, we need a technique that can measure the quality of features from just a single image, and we want to avoid smooth regions and edges.
 
-For example, we do not want to track "ambiguous" locations, meaning large undifferentiated regions of the image that are hard to "anchor" to a specific location, such as arbitrary points along edges or faces or smooth color gradients. We want to look at corners and sharp changes.
+For example, we do not want to track "ambiguous" locations, meaning large undifferentiated regions of the image that are hard to "anchor" to a specific location, such as arbitrary points along edges, faces, or smooth color gradients. We want to look at corners and sharp changes.
 
 A feasible solution is using Harris Corners. We can leverage the Harris method to detect corners as key points and determine the quality of our key points from single images. For example, we can use Harris to get the corners of the very first frame, then track them from there. This practice guarantees small error sensitivity.
 
@@ -134,7 +134,7 @@ Feature tracking is similar to, but not the same as optical flow. In fact, optic
   <br />
 </p>
 
-Feature tracking has many practical applications. One example is using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
+Feature tracking has many practical applications. One example is using the combined key point locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
 <p align="center">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_initial.gif?raw=true" width="200">
@@ -176,7 +176,7 @@ This section illustrates some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_fish.gif?raw=true" width="500">
   <br />
   <em>
-    Figure . Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
+    Figure 9. Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
   </em>
   <br />
 </p>
@@ -244,7 +244,7 @@ There are different types of 2D transformations, as shown in Figure 12. Some exa
 
 <!-- ![translation img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true) -->
 
-Translation is a motion that shifts a object from one point to another. In particular, translation motion maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
+Translation is a motion that shifts an object from one point to another. In particular, translation motion maps one point $(x, y)$ to a new point $(x^\prime, y^\prime)$ in the next frame such that:
 
 $$
 \begin{eqnarray*}
@@ -282,11 +282,9 @@ y \\
 \end{bmatrix}
 $$
 
-in which there are only two parameters $p=\begin{bmatrix}
-b_{1} \\ b_{2}
-\end{bmatrix}$.
+in which there are only two parameters $\displaystyle p=\begin{bmatrix} b_{1} & b_{2} \end{bmatrix}^T$.
 
-The derivative of the trasformation W with respect to p is:
+The derivative of the trasformation $W$ with respect to $p$ is:
 
 $$
 \frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
@@ -310,7 +308,7 @@ This is the Jacobian of the translation motion.
 
 <!-- ![similarity img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true) -->
 
-Similarity motion is a rigid motion that includes scaling and translation. In particular, similarity transformation maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
+Similarity motion is a rigid motion that includes scaling and translation. In particular, similarity transformation maps one point $(x, y)$ to a new point $(x^\prime, y^\prime)$ in the next frame such that:
 
 $$
 \begin{eqnarray*}
@@ -332,7 +330,11 @@ y \\
 \end{bmatrix}
 $$
 
-The similarity transformation matrix W and the parameters p are described as follows:
+in which the parameters are $\displaystyle p=\begin{bmatrix}
+a & b_{1} & b_{2}
+\end{bmatrix}^T$.
+
+<!-- The similarity transformation matrix W and the parameters p are described as follows:
 
 $$
 \begin{eqnarray*}
@@ -344,9 +346,9 @@ p&=&\begin{bmatrix}
 a & b_{1} & b_{2}
 \end{bmatrix}^T
 \end{eqnarray*}
-$$
+$$ -->
 
-The derivative of the trasformation W with respect to p is:
+The derivative of the trasformation $W$ with respect to $p$ is:
 
 $$
 \frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
@@ -370,12 +372,12 @@ This is the Jacobian of the similarity motion.
 
 <!-- ![affine img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true) -->
 
-Affine motion includes scaling, translation, and rotation. In particular, affine transformation maps one point $(x, y)$ to a newpoint $(x^\prime, y^\prime)$ in the next frame such that:
+Affine motion includes scaling, translation, and rotation. In particular, affine transformation maps one point $(x, y)$ to a new point $(x^\prime, y^\prime)$ in the next frame such that:
 
 $$
 \begin{eqnarray*}
 x^{\prime}&=&a_{1} x+a_{2} y+b_{1} \\
-y^{\prime}&=&a_{3} x+a_{3} y+b_{2}
+y^{\prime}&=&a_{3} x+a_{4} y+b_{2}
 \end{eqnarray*}
 $$
 
@@ -383,7 +385,7 @@ We can rewrite the equations as a matrix transformation:
 
 $$
 W(x ; p)=\begin{bmatrix}
-a & a_{2} & b_{1} \\
+a_{1} & a_{2} & b_{1} \\
 a_{3} & a_{4} & b_{2}
 \end{bmatrix}\begin{bmatrix}
 x \\
@@ -392,7 +394,11 @@ y \\
 \end{bmatrix}
 $$
 
-The affine transformation matrix W and parameters p are described as follows:
+in which the parameters are $\displaystyle p=\begin{bmatrix}
+a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
+\end{bmatrix}^T$.
+
+<!-- The affine transformation matrix W and parameters p are described as follows:
 
 $$
 \begin{eqnarray*}
@@ -404,9 +410,9 @@ p&=&\begin{bmatrix}
 a_{1} & a_{2} & b_{1} & a_{3} & a_{4} & b_{2}
 \end{bmatrix}^T
 \end{eqnarray*}
-$$
+$$ -->
 
-The derivative of the trasformation W with respect to p is:
+The derivative of the trasformation $W$ with respect to $p$ is:
 
 $$
 \frac{\partial W}{\partial p}(x ; p)=\begin{bmatrix}
@@ -425,9 +431,9 @@ The iterative KLT tracker is a more advanced version of the above simple KLT tra
 
 Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
 
-For each feature at location $x = \begin{bmatrix} p_x & p_y \end{bmatrix}^T$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$. In addition, for a location $x$, we will assume that $x$ undergoes a transformation (translation, affine, etc.) parameterized by $p$ to reach its new location $W(x; p)$.
+For each feature at location $x = \begin{bmatrix} i_x & i_y \end{bmatrix}^T$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$. In addition, for a location $x$, we will assume that $x$ undergoes a transformation (translation, affine, etc.) parameterized by $p$ to reach its new location $W(x; p)$.
 
-Compared to the simple KLT tracker, this iterative technique employs a different way of connecting sequential frames. Instead of harnessing optical flow to compute and track motions, we directly estimate the transformations based on input feature vectors and linear approximations. This practice enables us to handle more complex motions and make our feature tracking more robust.
+Compared to the simple KLT tracker, this iterative technique employs a different way of connecting sequential frames. Instead of harnessing optical flow to compute and track motions, we directly estimate the transformations based on input feature vectors and linear approximations. This practice enables us to handle more complex motions and make our feature tracking pipeline more robust.
 
 ### KLT Objective
 
@@ -449,13 +455,13 @@ Since $p$ may be large, directly finding the minimum of $\displaystyle L = \sum_
 
 Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small (residual) motions respectively. We can fix $p_0$ by initializing it with our best guess of the motion, then solve for the small value $\Delta p$.
 
-Now, we can use the Taylor series to approximate $L$.
+Now, we can use the Taylor series to approximate $L$. We know that for a small value of $\Delta x$:
 
 $$
 f(x + \Delta x) = f(x) + \Delta x \frac{\partial f}{\partial x} + \Delta x^2 \frac{\partial^2 f}{\partial x^2} + \dots
 $$
 
-By applying this Taylor approximation with the first two terms, we learn that
+By applying this Taylor approximation with the first two terms, we learn that:
 
 $$ 
 \begin{align*}
@@ -466,15 +472,15 @@ $$
 
 in which $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$ and $\displaystyle \frac{\partial W}{\partial p}$ can be pre-computed for affine motions, translation motions, and other transformations.
 
-Afterwards, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \overline{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$
+Afterwards, we aim to find $\displaystyle \arg\min_{\Delta p} \overline{L}$ where $\displaystyle \overline{L} = \sum_x \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right]^2$.
 
-Computing its derivative with respect to $\Delta p$ and setting it equal to $0$, we get
+Computing its derivative with respect to $\Delta p$ and setting it equal to $0$, we get:
 
 $$ 
 \frac{\partial \overline{L}}{\partial \Delta p} = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[I(W(x;p_0)) + \nabla I \frac{\partial W}{\partial p} \Delta p - T(x)\right] = 0
 $$
 
-By solving for $\Delta p$, we learn that
+By solving for $\Delta p$, we learn that:
 
 $$
 \Delta p = H^{-1} \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[T(x) - I(W(x;p_0))\right]
@@ -484,7 +490,7 @@ in which $\displaystyle H = \sum_x \left[\nabla I \frac{\partial W}{\partial p}\
 
 ### Interpretation of the H Matrix
 
-Let's consider translation motions. We know that
+Let's consider translation motions. We know that:
 
 $$
 \begin{eqnarray*}
@@ -493,7 +499,7 @@ $$
 \end{eqnarray*}
 $$
 
-Thus, the $H$ matrix becomes
+Thus, the $H$ matrix becomes:
 
 $$ 
 \begin{align*}
@@ -503,7 +509,7 @@ H &= \sum_x \left[\nabla I \frac{\partial W}{\partial p}\right]^T \left[\nabla I
 \end{align*}
 $$
 
-This is the matrix for the Harris corner detector. We can see that H is easily invertible when both of its eigenvalues are large, which represents a corner in the input image. Therefore, corners in images are good features for calculating translation motions.
+This is the matrix for the Harris corner detector. We can see that $H$ is easily invertible when both of its eigenvalues are large, which represents a corner in the input image. Therefore, corners in images are good features for calculating translation motions.
 
 ### Overall KLT Tracker Algorithm
 
@@ -526,7 +532,7 @@ Given the features from Harris detector:
 
 ### KLT over Multiple Frames
 
-We can extend this algorithm over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. The way we do this is by running the Harris detector every so often ($15-20$ frames) to replenish feature points.
+We can extend this algorithm over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. Run the Harris detector every so often ($15-20$ frames) to replenish feature points.
 
 ### Challenges in Iterative KLT Tracker
 
