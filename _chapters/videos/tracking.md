@@ -4,8 +4,7 @@ keywords: feature tracking, klt algorithm
 order: 16 # Lecture number for 2020
 ---
 
-
-_(Some introduction here)_
+The process of detecting and tracking objects over multiple video frames is an interesting research area in computer vision. In this lecture, we will explore the problem of feature tracking and two different versions of the KLT feature tracker algorithm.
 
 
 * [Feature Tracking](#feature-tracking)
@@ -470,15 +469,15 @@ When implementing this algorithm, there are a few key issues to consider:
 
 ## References
 
-&emsp; [1] Niebles, J. C., & Wu, J. (2020). CS 131 Lecture: Tracking. 
+[1] Niebles, J. C., & Wu, J. (2020). CS 131 Lecture: Tracking. 
 
-&emsp; [2] Suhr, J. K. (2009). Kanade-Lucas-Tomasi (KLT) Feature Tracker Feature Tracker. 
+[2] Suhr, J. K. (2009). Kanade-Lucas-Tomasi (KLT) Feature Tracker Feature Tracker. 
 
-&emsp; [3] Bouguet, J.-Y., & Perona, P. (1995). 3D motion and structure estimation—Visual navigation project. ICCV 95 Proceedings. Department of Electrical Engineering, California Institute of Technology. 
+[3] Bouguet, J.-Y., & Perona, P. (1995). 3D Motion and Structure Estimation. ICCV 95 Proceedings. Department of Electrical Engineering, California Institute of Technology. 
 
-&emsp; [4] Lucas, B. D., & Kanade, T. (1981). An iterative image registration technique with an application to stereo vision. Computer Science Department, Carnegie Mellon University.
+[4] Lucas, B. D., & Kanade, T. (1981). An Iterative Image Registration Technique with an Application to Stereo Vision. Computer Science Department, Carnegie Mellon University.
 
-&emsp; [5] Tomasi, C., & Kanade, T. (1991). Detection and Tracking of Point Features. Computer Science Department, Carnegie Mellon University.
+[5] Tomasi, C., & Kanade, T. (1991). Detection and Tracking of Point Features. Computer Science Department, Carnegie Mellon University.
 
 
 <!-- &emsp; [1] http://vision.stanford.edu/teaching/cs131_fall1920/slides/18_tracking.pdf
