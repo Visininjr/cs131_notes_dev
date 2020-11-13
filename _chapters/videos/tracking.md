@@ -4,6 +4,7 @@ keywords: feature tracking, klt algorithm
 order: 16 # Lecture number for 2020
 ---
 
+
 _(Some introduction here)_
 
 
@@ -105,7 +106,7 @@ These are the steps for the algorithm:
 2. For every detected Harris corner, compute the motion of that corner across consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
 3. Link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
 4. Introduce new Harris points by re-running the Harris detector every $10 - 15$ frames (because we may get new points or lose some points due to occlusion).
-5. Keep track of new and old Harris points using steps 1-3.
+5. Keep track of new and old Harris points using steps $1-3$.
 
 ### Results
 
@@ -144,7 +145,7 @@ This section reviews some fundamental concepts of 2D transformations that are ne
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true" width="600">
   <br />
   <em>
-    Figure 5. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
+    Figure 5. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -165,7 +166,7 @@ There are different types of 2D transformations, as shown in Figure 5. Some exam
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="300">
   <br />
   <em>
-    Figure 6. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
+    Figure 6. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -230,7 +231,7 @@ This is the Jacobian of the translation motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true" width="500">
   <br />
   <em>
-    Figure 7. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
+    Figure 7. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -289,7 +290,7 @@ This is the Jacobian of the similarity motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true" width="500">
   <br />
   <em>
-    Figure 8. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu - Stanford Vision and Learning Lab [1])
+    Figure 8. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -350,17 +351,15 @@ The iterative KLT tracker is a more advanced version of the above simple KLT tra
 
 Given a video sequence, we want to find all the features and track them across the video. Using Harris corner detection, we can obtain the current location of each feature in a given frame, and then find their new locations in the next frame.
 
-For each feature at location $x = \begin{bmatrix} x & y \end{bmatrix}^T$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$.
+For each feature at location $x = \begin{bmatrix} p_x & p_y \end{bmatrix}^T$, we want to create an initial template $T(x)$ for that feature, which is typically an image patch around $x$. In addition, for a location $x$, we will assume that $x$ undergoes a transformation (translation, affine, etc.) parameterized by $p$ to reach its new location $W(x; p)$.
 
-For a location $x$ to reach its new location $W(x; p)$, we will assume that $x$ undergoes a transformation (translation, affine, etc.) parameterized by $p$.
-
-This iterative approach is different from the simple KLT tracker in the way that it links frames. Instead of using optical flow to link motion vectors and track motion, we directly solve for the relevant transformations using feature data and linear approximations. This allows us to deal with more complex transformations and link objects more robustly.
+Compared to the simple KLT tracker, this iterative technique employs a different way of connecting sequential frames. Instead of harnessing optical flow to compute and track motions, we directly estimate the transformations based on input feature vectors and linear approximations. This practice enables us to handle more complex motions and make our feature tracking more robust.
 
 ### KLT Objective
 
-Given this problem setting, the objective of the iterative KLT tracker is to find the parameter of transformation $p$ that minimizes the difference between the original template $T(x)$ and the image patch around the new location of $x$ in the next frame (after the transformation). This is represented by the following equation, which is what we want to solve:
+Given this problem setting, the objective of the iterative KLT tracker is to find the parameter of transformation $p$ that minimizes the difference between the original template $T(x)$ and the image patch around the new location of $x$ in the next frame (after the transformation). This idea is represented by the following KLT objective, which is what we want to minimize:
 
-  $$ \sum_x [I(W(x; p)) - T(x)]^2 $$
+  $$L = \sum_x [I(W(x; p)) - T(x)]^2 $$
 
 where
 * $W(x; p)$ is the new location of feature $x$.
@@ -372,7 +371,7 @@ where
 
 In this section, we will derive a closed form approximation of $p$ that minimizes the KLT objective.
 
-Since $p$ may be large, finding the minimum of $\displaystyle L = \sum_x \left[I(W(x;p)) - T(x)\right]^2$ may be quite challenging. 
+Since $p$ may be large, directly finding the minimum of $\displaystyle L = \sum_x \left[I(W(x;p)) - T(x)\right]^2$ may be quite challenging. 
 
 Instead, we will break down $p$ into two components $p = p_0 + \Delta p$. In this case, $p_0$ and $\Delta p$ represents large and small (residual) motions respectively. We can fix $p_0$ by initializing it with our best guess of the motion, then solve for the small value $\Delta p$.
 
@@ -434,7 +433,7 @@ This is the matrix for the Harris corner detector. We can see that H is easily i
 
 ### Overall KLT Tracker Algorithm
 
-Given our formula for $\Delta p$, this is the pseudocode for the algorithm.
+Given our formula for $\Delta p$, these are the steps for the iterative KLT tracking algorithm.
 
 Given the features from Harris detector:
 
@@ -445,25 +444,26 @@ Given the features from Harris detector:
 5. Compute the image gradients $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$.
 6. Evaluate the Jacobian $\displaystyle \frac{\delta W}{\delta p}$.
 7. Compute the steepest descent $\displaystyle \nabla I \frac{\delta W}{\delta p}$.
-8. Compute Inverse Hessian $H^{-1}$.
+8. Compute the inverse Hessian $H^{-1}$.
 9. Calculate the change in parameters $\Delta p$.
 10. Update parameters $\displaystyle p_0 = p_0+\Delta p$.
-11. Repeat steps 3 to 10 until $\Delta p$ is small.
+11. Repeat steps $3-10$ until $\Delta p$ is sufficiently small.
 
 
 ### KLT over Multiple Frames
 
-We can extend this over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. Run the Harris detector every so often ($15-20$ frames) to replenish features.
+We can extend this algorithm over multiple frames. This is because once we find a transformation between two consecutive frames, you can repeat this process for every new frame that comes in. Run the Harris detector every so often ($15-20$ frames) to replenish feature points.
 
 ### Challenges in Iterative KLT Tracker
 
 When implementing this algorithm, there are a few key issues to consider:
-* Window size (size of neighborhood/template around $x$)
-    * Small window more sensitive to noise and may miss larger motions (if we don't use a pyramid).
-    * Large window more likely to cross an occlusion boundary, making the signal confusing to the algorithm (also, it is slower).
+
+* Window size (the size of neighborhood/template around each location $x$):
+    * A small window tend to be more sensitive to noise and may miss larger motions (if we do not use a pyramid technique).
+    * A large window is more likely to cross an occlusion boundary, making the signal confusing to the algorithm. In addition, a large window size adds more computational costs to our program.
     * Most implementations stay between the range of $15 \times 15$ to $31 \times 31$ for neighborhoods.
-* Weighting the window
-    - Common to apply weights so that center matters more (e.g. with Gaussian weighting to give more emphasis to center pixels.)
+* Weighting the window:
+    - A common approach is applying weights so that center pixels get higher weights. For example, using Gaussian weighting gives more emphasis to center pixels.
 
 
 
