@@ -4,6 +4,7 @@ keywords: feature tracking, klt algorithm
 order: 16 # Lecture number for 2020
 ---
 
+
 The process of detecting and tracking objects over multiple video frames is an interesting research area in computer vision. In this lecture, we will explore the problem of feature tracking and two different versions of the KLT feature tracker algorithm.
 
 
@@ -74,6 +75,14 @@ A feasible solution is using Harris Corners. We can leverage the Harris method t
 
 Feature tracking is similar to, but not the same as optical flow. In fact, optical flow takes the pixels of the image frames and recover their motion based on image brightness changes across time and space simultaneously. However, feature tracking only attempts to estimate the motion of a small number of visual feature points over multiple frames. We can also achieve this goal by combining keypoint detection on each frame with optical flow algorithms to track the feature points.
 
+<p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/optical-flow.jpg?raw=true" width="400">
+  <br />
+  <em>
+    Figure 2. Application of optical flow in tracking feature points <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+  </em>
+</p>
+
 Feature tracking has many practical applications. One example is using the combined keypoint locations and motions to solve for all locations in 3d space, for simultaneous location and mapping in robotics.
 
 <p align="center">
@@ -82,7 +91,7 @@ Feature tracking has many practical applications. One example is using the combi
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/seq_features_1.gif?raw=true" width="200">
   <br />
   <em>
-    Figure 2. An application of feature tracking for visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
+    Figure 3. An application of feature tracking for visual navigation of a vehicle. <br /> (Courtesy of Jean-Yves Bouguet – Vision Lab, California Institute of Technology [3])
   </em>
 </p>
 
@@ -112,10 +121,20 @@ These are the steps for the algorithm:
 This section illustrates some results of the simple KLT tracking algorithm.
 
 <p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_fish.gif?raw=true" width="400">
+  <br />
+  <em>
+    Figure 4. Results of the KLT algorithm for tracking fish (Courtesy of Kanade [4, 5])
+  </em>
+  <br />
+</p>
+
+<p align="center">
+  <br />
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_cars.gif?raw=true" width="400">
   <br />
   <em>
-    Figure 3. Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
+    Figure 5. Results of the KLT algorithm for tracking cars (Courtesy of Kanade [4, 5])
   </em>
   <br />
 </p>
@@ -125,7 +144,7 @@ This section illustrates some results of the simple KLT tracking algorithm.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/klt_movement.gif?raw=true" width="400">
   <br />
   <em>
-    Figure 4. Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
+    Figure 6. Results of the KLT algorithm for tracking human movements (Courtesy of Kanade [4, 5])
   </em>
 </p>
 
@@ -144,13 +163,13 @@ This section reviews some fundamental concepts of 2D transformations that are ne
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true" width="600">
   <br />
   <em>
-    Figure 5. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 7. Types of 2D transformations <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
 <!-- ![2d transformations img](https://github.com/Visininjr/cs131_notes_dev/blob/master/images/2d_transforms.jpg?raw=true) -->
 
-There are different types of 2D transformations, as shown in Figure 5. Some examples include:
+There are different types of 2D transformations, as shown in Figure 7. Some examples include:
 
 * Translation transformations.
 * Euclidean transformations.
@@ -165,7 +184,7 @@ There are different types of 2D transformations, as shown in Figure 5. Some exam
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/translation.jpg?raw=true" width="300">
   <br />
   <em>
-    Figure 6. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 8. Translation motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -230,7 +249,7 @@ This is the Jacobian of the translation motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/similarity.png?raw=true" width="500">
   <br />
   <em>
-    Figure 7. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 9. Similarity motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
@@ -289,7 +308,7 @@ This is the Jacobian of the similarity motion.
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/affine.png?raw=true" width="500">
   <br />
   <em>
-    Figure 8. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
+    Figure 10. Affine motion <br /> (Courtesy of Juan Carlos Niebles & Jiajun Wu – Stanford Vision and Learning Lab [1])
   </em>
 </p>
 
