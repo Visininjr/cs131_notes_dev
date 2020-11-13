@@ -43,6 +43,7 @@ _**Single object tracking**_ applies when we can make an assumption that each fr
 Assumptions can also be made regarding whether the camera is fixed or moving. Feature tracking with a moving camera is a more difficult problem. Another possibility is tracking with Mmltiple cameras, with some assumptions about where the cameras are in physical space relative to each other.
 
 <p align="center">
+  <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking-2.jpg?raw=true" width="600">
   <img src="https://github.com/Visininjr/cs131_notes_dev/blob/master/images/feature-tracking.jpg?raw=true" width="600">
   <br />
   <em>
