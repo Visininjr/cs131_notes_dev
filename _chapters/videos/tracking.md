@@ -4,6 +4,7 @@ keywords: feature tracking, klt algorithm
 order: 16 # Lecture number for 2020
 ---
 
+
 _(Some introduction here)_
 
 
@@ -101,11 +102,11 @@ The name “KLT” is derived from the names of its authors Kenade, Lucas, and T
 
 These are the steps for the algorithm:
 
-&nbsp; 1. Find a good point to track. For instance, we can accomplish this by running a Harris corner detector and selecting some corners in the image.
-&nbsp; 2. For every detected Harris corner, compute the motion of that corner across consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
-&nbsp; 3. Link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
-&nbsp; 4. Introduce new Harris points by re-running the Harris detector every $10 - 15$ frames (because we may get new points or lose some points due to occlusion).
-&nbsp; 5. Keep track of new and old Harris points using steps $1-3$.
+1. Find a good point to track. For instance, we can accomplish this by running a Harris corner detector and selecting some corners in the image.
+2. For every detected Harris corner, compute the motion of that corner across consecutive frames. We can accomplish this by using optical flow to calculate how the point is moving through time.
+3. Link the motion vectors we obtain from optical flow in successive frames to get a full track for each Harris point. 
+4. Introduce new Harris points by re-running the Harris detector every $10 - 15$ frames (because we may get new points or lose some points due to occlusion).
+5. Keep track of new and old Harris points using steps $1-3$.
 
 ### Results
 
@@ -436,17 +437,17 @@ Given our formula for $\Delta p$, these are the steps for the iterative KLT trac
 
 Given the features from Harris detector:
 
-&nbsp; 1. Initialize $p_0$.
-&nbsp; 2. Compute the initial templates $T(x)$ for each feature.
-&nbsp; 3. Transform the features in the image $I$ with $W(x;p_0)$.
-&nbsp; 4. Measure the error $\displaystyle I(W(x;p_0))-T(x)$.
-&nbsp; 5. Compute the image gradients $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$.
-&nbsp; 6. Evaluate the Jacobian $\displaystyle \frac{\delta W}{\delta p}$.
-&nbsp; 7. Compute the steepest descent $\displaystyle \nabla I \frac{\delta W}{\delta p}$.
-&nbsp; 8. Compute the inverse Hessian $H^{-1}$.
-&nbsp; 9. Calculate the change in parameters $\Delta p$.
-&nbsp; 10. Update parameters $\displaystyle p_0 = p_0+\Delta p$.
-&nbsp; 11. Repeat steps $3-10$ until $\Delta p$ is sufficiently small.
+1. Initialize $p_0$.
+2. Compute the initial templates $T(x)$ for each feature.
+3. Transform the features in the image $I$ with $W(x;p_0)$.
+4. Measure the error $\displaystyle I(W(x;p_0))-T(x)$.
+5. Compute the image gradients $\displaystyle \nabla I = \begin{bmatrix} I_x & I_y \end{bmatrix}$.
+6. Evaluate the Jacobian $\displaystyle \frac{\delta W}{\delta p}$.
+7. Compute the steepest descent $\displaystyle \nabla I \frac{\delta W}{\delta p}$.
+8. Compute the inverse Hessian $H^{-1}$.
+9. Calculate the change in parameters $\Delta p$.
+10. Update parameters $\displaystyle p_0 = p_0+\Delta p$.
+11. Repeat steps $3-10$ until $\Delta p$ is sufficiently small.
 
 
 ### KLT over Multiple Frames
